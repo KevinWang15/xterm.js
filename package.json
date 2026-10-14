@@ -1,12 +1,12 @@
 {
   "name": "@xterm/xterm",
   "description": "Full xterm terminal, in your browser",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "main": "lib/xterm.js",
   "module": "lib/xterm.mjs",
   "style": "css/xterm.css",
   "types": "typings/xterm.d.ts",
-  "repository": "https://github.com/xtermjs/xterm.js",
+  "repository": "https://github.com/KevinWang15/xterm.js",
   "license": "MIT",
   "workspaces": [
     "addons/*"

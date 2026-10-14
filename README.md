@@ -1,5 +1,31 @@
 # [![xterm.js logo](images/logo-full.png)](https://xtermjs.org)
 
+## Outpost maintenance branch
+
+`outpost-6.0` is based on upstream tag `6.0.0` and backports
+[xtermjs/xterm.js#5515](https://github.com/xtermjs/xterm.js/pull/5515).
+Ctrl+/ now sends the unit separator byte (`0x1F`), matching Ctrl+_.
+The upstream commit and author are preserved in the branch history.
+
+The fork's `@xterm/xterm` version `6.0.1` is distributed as a package asset on
+[release `outpost-6.0.1`](https://github.com/KevinWang15/xterm.js/releases/tag/outpost-6.0.1),
+not published to the upstream npm package. Outpost pins this asset URL and its
+integrity hash in its lockfile. The existing 6.0 addons remain compatible.
+
+To build and verify the package with Node.js 24:
+
+```bash
+npm ci --ignore-scripts
+npm run package
+npm run test-unit -- out-esbuild/common/input/Keyboard.test.js
+npm run lint
+npm pack --ignore-scripts
+```
+
+The `Outpost package` workflow runs these checks and uploads the package to the
+tagged GitHub release. Replace the fork dependency when Outpost adopts an
+upstream release containing this fix.
+
 Xterm.js is a front-end component written in TypeScript that lets applications bring fully-featured terminals to their users in the browser. It's used by popular projects such as VS Code, Hyper and Theia.
 
 ## Features

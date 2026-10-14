@@ -41,6 +41,18 @@ function testEvaluateKeyboardEvent(partialEvent: {
 
 describe('Keyboard', () => {
   describe('evaluateKeyEscapeSequence', () => {
+    it('should encode ctrl+slash as the same unit separator as ctrl+underscore', () => {
+      for (const isMac of [false, true]) {
+        for (const keyCode of [191, 111]) { // Slash and NumpadDivide
+          assert.equal(testEvaluateKeyboardEvent({ ctrlKey: true, key: '/', keyCode }, { isMac }).key, '\x1f');
+        }
+        assert.equal(testEvaluateKeyboardEvent({ ctrlKey: true, shiftKey: true, key: '_', keyCode: 189 }, { isMac }).key, '\x1f');
+        assert.equal(testEvaluateKeyboardEvent({ key: '/', keyCode: 191 }, { isMac }).key, '/');
+        assert.notEqual(testEvaluateKeyboardEvent({ ctrlKey: true, shiftKey: true, key: '?', keyCode: 191 }, { isMac }).key, '\x1f');
+        assert.notEqual(testEvaluateKeyboardEvent({ ctrlKey: true, altKey: true, key: '/', keyCode: 191 }, { isMac }).key, '\x1f');
+        assert.notEqual(testEvaluateKeyboardEvent({ ctrlKey: true, metaKey: true, key: '/', keyCode: 191 }, { isMac }).key, '\x1f');
+      }
+    });
     it('should return the correct escape sequence for unmodified keys', () => {
       // Backspace
       assert.equal(testEvaluateKeyboardEvent({ keyCode: 8 }).key, '\x7f'); // ^?
